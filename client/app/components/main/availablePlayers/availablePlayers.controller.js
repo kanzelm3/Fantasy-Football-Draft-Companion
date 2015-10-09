@@ -1,7 +1,17 @@
 class AvailablePlayersController {
   constructor(Players, $mdBottomSheet) {
-    this.name = 'availablePlayers';
-    Players.list().then((players) => this.players = players);
+
+    this.players = [];
+
+    this.loadMore = () => {
+      let offset = this.players.length;
+      this.loading = true;
+      Players.list(offset).then((players) => {
+        this.players = this.players.concat(players);
+        delete this.loading;
+      });
+    };
+
     this.getPlayer = (player) => {
       Players.get(player.id).then((details) => {
         $mdBottomSheet.show({
@@ -18,7 +28,11 @@ class AvailablePlayersController {
           }
         });
       })
-    }
+    };
+
+    // initialize players list
+    this.loadMore();
+
   }
 }
 

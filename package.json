@@ -11,6 +11,7 @@
     "angular-sanitize": "^1.4.7",
     "angular-ui-router": "^0.2.15",
     "lodash": "^3.8.0",
+    "ng-infinite-scroll": "^1.2.0",
     "normalize.css": "^3.0.3",
     "videogular": "^1.2.8"
   },

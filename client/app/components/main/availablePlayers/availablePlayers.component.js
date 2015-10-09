@@ -8,6 +8,7 @@ let availablePlayersComponent = function () {
     scope: {
       selectedPlayer: '='
     },
+    replace: true,
     template,
     controller,
     controllerAs: 'vm',

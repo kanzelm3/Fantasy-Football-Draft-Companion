@@ -7,6 +7,7 @@ import '../../node_modules/videogular/dist/controls/latest/vg-controls';
 import '../../node_modules/videogular/dist/overlay-play/latest/vg-overlay-play';
 import '../../node_modules/videogular/dist/poster/latest/vg-poster';
 import '../../node_modules/videogular/dist/buffering/latest/vg-buffering';
+import 'ng-infinite-scroll';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
@@ -18,6 +19,7 @@ angular.module('app', [
   'com.2fdevs.videogular.plugins.controls',
   'com.2fdevs.videogular.plugins.overlayplay',
   'com.2fdevs.videogular.plugins.poster',
+  'infinite-scroll',
   uiRouter,
   ngMaterial,
   Common.name,

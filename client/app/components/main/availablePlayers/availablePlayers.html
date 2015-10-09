@@ -1,12 +1,24 @@
-<md-list>
-  <md-subheader class="md-no-sticky">Top Fantasy Players 2015</md-subheader>
-  <md-list-item class="md-2-line" ng-repeat="player in vm.players" ng-click="vm.getPlayer(player)">
-    <img alt="{{player.firstName}} {{player.lastName}}"
-         ng-src="http://s.nflcdn.com/static/content/public/image/fantasy/transparent/200x200/{{player.esbid}}.png"
-         class="md-avatar" />
-    <div class="md-list-item-text" layout="column">
-      <h3>{{ player.rank }}) {{player.firstName}} {{player.lastName}}</h3>
-      <p>{{player.position}} - {{player.teamAbbr}}</p>
-    </div>
-  </md-list-item>
-</md-list>
+<md-content layout-fill layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2 class="md-flex">Available Players</h2>
+        </div>
+    </md-toolbar>
+    <md-content flex id="available-players-parent">
+        <md-list infinite-scroll="vm.loadMore()"
+                 infinite-scroll-disabled="vm.loading"
+                 infinite-scroll-distance="1"
+                 infinite-scroll-container="'#available-players-parent'">
+            <md-list-item class="md-2-line" ng-repeat="player in vm.players" ng-click="vm.getPlayer(player)">
+                <img alt="{{player.firstName}} {{player.lastName}}"
+                     ng-src="http://s.nflcdn.com/static/content/public/image/fantasy/transparent/200x200/{{player.esbid}}.png"
+                     class="md-avatar" />
+                <div class="md-list-item-text" layout="column">
+                    <h3>{{ player.rank }}) {{player.firstName}} {{player.lastName}}</h3>
+                    <p>{{player.position}} - {{player.teamAbbr}}</p>
+                </div>
+            </md-list-item>
+            <div ng-show="vm.loading">Loading data...</div>
+        </md-list>
+    </md-content>
+</md-content>
