@@ -1,0 +1,37 @@
+<div class="current-player" layout="column">
+  <md-toolbar class="md-tall md-accent">
+    <span flex></span>
+    <div class="md-toolbar-tools md-toolbar-tools-bottom">
+      <img width="64" height="64" alt="#{{vm.currentPlayer.jerseyNumber}} {{vm.currentPlayer.name}}"
+           ng-src="http://s.nflcdn.com/static/content/public/image/fantasy/transparent/200x200/{{vm.currentPlayer.esbid}}.png"
+           class="md-avatar" />
+      <h2>#{{vm.currentPlayer.jerseyNumber}} {{vm.currentPlayer.name}}</h2>
+      <h4 class="position-status">
+        {{vm.currentPlayer.teamAbbr}} {{vm.currentPlayer.position}}
+        <span ng-if="vm.currentPlayer.injuryGameStatus">{{vm.currentPlayer.injuryGameStatus | limitTo:1}}</span>
+      </h4>
+      <md-icon>announcement</md-icon>
+      <md-icon>message</md-icon>
+      <span flex></span>
+    </div>
+  </md-toolbar>
+  <content layout="column" layout-padding>
+    <h3 class="md-subhead">Player Videos</h3>
+    <md-grid-list
+            md-cols-sm="4" md-cols-md="8" md-cols-gt-md="10"
+            md-row-height="4:3"
+            md-gutter="12px" md-gutter-gt-sm="8px">
+      <md-grid-tile
+              md-rowspan="1"
+              md-colspan="1"
+              ng-repeat="video in vm.currentPlayer.videos"
+              ng-style="{ 'background-image': 'url(' + video.mediumPhotoUrl + ')' }"
+              ng-click="vm.playVideo(video)">
+        <md-tooltip>
+          {{video.title}}
+        </md-tooltip>
+        <md-icon>play_circle_filled</md-icon>
+      </md-grid-tile>
+    </md-grid-list>
+  </content>
+</div>
