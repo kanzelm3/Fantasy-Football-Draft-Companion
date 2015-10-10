@@ -8,10 +8,12 @@ import '../../node_modules/videogular/dist/overlay-play/latest/vg-overlay-play';
 import '../../node_modules/videogular/dist/poster/latest/vg-poster';
 import '../../node_modules/videogular/dist/buffering/latest/vg-buffering';
 import 'ng-infinite-scroll';
+import '../../node_modules/angular-ui-tree/dist/angular-ui-tree';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
 import 'normalize.css';
+import '../../node_modules/angular-ui-tree/dist/angular-ui-tree.min.css';
 
 angular.module('app', [
   ngSanitize,
@@ -20,6 +22,7 @@ angular.module('app', [
   'com.2fdevs.videogular.plugins.overlayplay',
   'com.2fdevs.videogular.plugins.poster',
   'infinite-scroll',
+  'ui.tree',
   uiRouter,
   ngMaterial,
   Common.name,

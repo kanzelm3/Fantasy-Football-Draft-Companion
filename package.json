@@ -10,6 +10,7 @@
     "angular-material": "^0.11.2",
     "angular-sanitize": "^1.4.7",
     "angular-ui-router": "^0.2.15",
+    "angular-ui-tree": "^2.9.0",
     "lodash": "^3.8.0",
     "ng-infinite-scroll": "^1.2.0",
     "normalize.css": "^3.0.3",
