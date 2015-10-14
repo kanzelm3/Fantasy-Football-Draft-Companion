@@ -4,7 +4,10 @@
             <h2 class="md-flex">Available Players</h2>
         </div>
     </md-toolbar>
-    <md-content flex id="available-players-parent" ui-tree>
+    <md-content flex id="available-players-parent"
+                ui-tree
+                data-drag-delay="300"
+                data-empty-placeholder-enabled="false">
         <div ui-tree-nodes
              ng-model="vm.players">
             <md-list infinite-scroll="vm.loadMore()"
@@ -22,8 +25,18 @@
                         <h3>{{ player.rank }}) {{player.firstName}} {{player.lastName}}</h3>
                         <p>{{player.position}} - {{player.teamAbbr}}</p>
                     </div>
+                    <md-button ng-click="vm.watchPlayer(player, $event)"
+                               class="md-icon-button">
+                      <md-icon>visibility</md-icon>
+                      <md-tooltip>Watch Player</md-tooltip>
+                    </md-button>
+                    <md-button ng-click="vm.selectPlayer(player, $event)"
+                               class="md-icon-button">
+                      <md-icon>check</md-icon>
+                      <md-tooltip>Draft Player</md-tooltip>
+                    </md-button>
                 </md-list-item>
-                <div ng-show="vm.loading">Loading data...</div>
+                <div ng-show="vm.loading"><md-progress-circular md-mode="indeterminate"></md-progress-circular></div>
             </md-list>
         </div>
     </md-content>

@@ -9,6 +9,7 @@ import '../../node_modules/videogular/dist/poster/latest/vg-poster';
 import '../../node_modules/videogular/dist/buffering/latest/vg-buffering';
 import 'ng-infinite-scroll';
 import '../../node_modules/angular-ui-tree/dist/angular-ui-tree';
+import 'angularjs-scroll-glue';
 import Common from './common/common';
 import Components from './components/components';
 import AppComponent from './app.component';
@@ -23,6 +24,7 @@ angular.module('app', [
   'com.2fdevs.videogular.plugins.poster',
   'infinite-scroll',
   'ui.tree',
+  'luegg.directives',
   uiRouter,
   ngMaterial,
   Common.name,

@@ -1,16 +1,16 @@
-import DraftedPlayersModule from './draftedPlayers'
-import DraftedPlayersController from './draftedPlayers.controller';
-import DraftedPlayersComponent from './draftedPlayers.component';
-import DraftedPlayersTemplate from './draftedPlayers.html';
+import PlayerListModule from './playerList'
+import PlayerListController from './playerList.controller';
+import PlayerListComponent from './playerList.component';
+import PlayerListTemplate from './playerList.html';
 
-describe('DraftedPlayers', () => {
+describe('PlayerList', () => {
   let $rootScope, makeController;
 
-  beforeEach(window.module(DraftedPlayersModule.name));
+  beforeEach(window.module(PlayerListModule.name));
   beforeEach(inject((_$rootScope_) => {
     $rootScope = _$rootScope_;
     makeController = () => {
-      return new DraftedPlayersController();
+      return new PlayerListController();
     };
   }));
 
@@ -30,16 +30,16 @@ describe('DraftedPlayers', () => {
     // template specs
     // tip: use regex to ensure correct bindings are used e.g., {{  }}
     it('has name in template [REMOVE]', () => {
-      expect(DraftedPlayersTemplate).to.match(/{{\s?vm\.name\s?}}/g);
+      expect(PlayerListTemplate).to.match(/{{\s?vm\.name\s?}}/g);
     });
   });
 
   describe('Component', () => {
       // component/directive specs
-      let component = DraftedPlayersComponent();
+      let component = PlayerListComponent();
 
       it('includes the intended template',() => {
-        expect(component.template).to.equal(DraftedPlayersTemplate);
+        expect(component.template).to.equal(PlayerListTemplate);
       });
 
       it('uses `controllerAs` syntax', () => {
@@ -47,7 +47,7 @@ describe('DraftedPlayers', () => {
       });
 
       it('invokes the right controller', () => {
-        expect(component.controller).to.equal(DraftedPlayersController);
+        expect(component.controller).to.equal(PlayerListController);
       });
   });
 });

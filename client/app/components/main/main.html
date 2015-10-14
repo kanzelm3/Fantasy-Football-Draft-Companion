@@ -2,7 +2,23 @@
 <div layout-fill>
   <md-content layout layout-fill id="content">
     <md-card flex>
-      <available-players selected-player="vm.currentPlayer"></available-players>
+      <available-players players="vm.availablePlayers"
+                         on-player-add="vm.draftPlayer(player)"
+                         on-player-watch="vm.watchPlayer(player)"></available-players>
     </md-card>
+    <div flex layout="column" layout-fill>
+      <md-card flex>
+        <player-list list-title="Drafted Players"
+                     players="vm.draftedPlayers"
+                     on-player-remove="vm.makePlayerAvailable(player)"></player-list>
+      </md-card>
+      <md-card flex>
+        <player-list list-title="Watch List"
+                     players="vm.watchList"
+                     use-rank="true"
+                     on-player-add="vm.draftPlayer(player)"
+                     on-player-remove="vm.makePlayerAvailable(player)"></player-list>
+      </md-card>
+    </div>
   </md-content>
 </div>

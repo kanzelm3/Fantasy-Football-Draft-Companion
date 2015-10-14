@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-let Players = function ($http, $q, $sce) {
+let Players = function ($http, $q, $sce, $mdBottomSheet) {
 
     class PlayersFactory {
         constructor(year) {
@@ -48,6 +48,23 @@ let Players = function ($http, $q, $sce) {
         }
         listPosition(position) {
 
+        }
+        showDetails(playerId) {
+            return this.fetchPlayer(playerId).then((details) => {
+                $mdBottomSheet.show({
+                    template: `
+                        <md-bottom-sheet class="current-player-sheet">
+                            <selected-player current-player="currentPlayer"></selected-player>
+                        </md-bottom-sheet>
+                    `,
+                    locals: {
+                        currentPlayer: details
+                    },
+                    controller: ($scope, currentPlayer) => {
+                        $scope.currentPlayer = currentPlayer;
+                    }
+                });
+            })
         }
         get(playerId) {
             return this.fetchPlayer(playerId);

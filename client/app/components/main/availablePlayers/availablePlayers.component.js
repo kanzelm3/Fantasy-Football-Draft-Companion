@@ -6,7 +6,9 @@ let availablePlayersComponent = function () {
   return {
     restrict: 'E',
     scope: {
-      selectedPlayer: '='
+      players: '=',
+      onPlayerAdd: '&',
+      onPlayerWatch: '&'
     },
     replace: true,
     template,
