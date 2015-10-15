@@ -1,9 +1,25 @@
 <md-content layout-fill layout="column">
-    <md-toolbar>
+    <md-toolbar ng-show="!vm.showSearch">
         <div class="md-toolbar-tools">
             <h2 class="md-flex">Available Players</h2>
         </div>
     </md-toolbar>
+    <div layout layout-padding class="player-filters">
+      <md-input-container flex>
+        <label>Position</label>
+        <md-select ng-model="vm.search.position" md-on-open="vm.loadPositions()">
+          <md-option value="">All</md-option>
+          <md-option ng-repeat="position in vm.positions" value="{{position}}">{{position}}</md-option>
+        </md-select>
+      </md-input-container>
+      <md-input-container flex class="md-icon-right">
+        <label>Player Name</label>
+        <input type="text" ng-model="vm.search.fullName" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 500, 'blur': 0 } }">
+        <md-icon ng-click="vm.search.fullName = ''" ng-show="vm.search.fullName">
+          close
+        </md-icon>
+      </md-input-container>
+    </div>
     <md-content flex id="available-players-parent"
                 ui-tree
                 data-drag-delay="300"
@@ -13,22 +29,52 @@
             <md-list infinite-scroll="vm.loadMore()"
                      infinite-scroll-disabled="vm.loading"
                      infinite-scroll-distance="1"
-                     infinite-scroll-container="'#available-players-parent'">
+                     infinite-scroll-container="'#available-players-parent'"
+                     infinite-scroll-listen-for-event="list:filtered">
                 <md-list-item class="md-2-line"
-                              ng-repeat="player in vm.players"
+                              ng-repeat="player in vm.players | filter:vm.search | limitTo:vm.playerLimit"
                               ui-tree-node
-                              ng-click="vm.getPlayer(player)">
+                              ng-click="vm.showDetails(player)" ng-class="{ 'watched-player': player.watched }">
                     <img alt="{{player.firstName}} {{player.lastName}}"
-                         ng-src="http://s.nflcdn.com/static/content/public/image/fantasy/transparent/200x200/{{player.esbid}}.png"
-                         class="md-avatar" />
+                         ng-src="{{player.details.imageUrl}}"
+                         class="md-avatar" ng-show="player.details.imageUrl" />
+                    <md-icon class="md-avatar-icon" ng-show="!player.details.imageUrl">person</md-icon>
                     <div class="md-list-item-text" layout="column">
-                        <h3>{{ player.rank }}) {{player.firstName}} {{player.lastName}}</h3>
-                        <p>{{player.position}} - {{player.teamAbbr}}</p>
+                        <h3>{{player.firstName}} {{player.lastName}}
+                          <span ng-if="player.details.notes.length" ng-class="{ 'new-notes': vm.newNotes(player.details.notes).length }">
+                            <md-icon>
+                              whatshot
+                              <md-tooltip>Player News {{vm.newNotes(player.details.notes).length ? ('(' + vm.newNotes(player.details.notes).length + ' new ' + (vm.newNotes(player.details.notes).length > 1 ? 'stories' : 'story') + ')') : ''}}</md-tooltip>
+                            </md-icon>
+                          </span>
+                          <span ng-if="player.overallRank">
+                            Overall: {{ player.overallRank }} | {{player.position}}: {{ player.positionRank }}
+                            <md-tooltip>Overall and Position Ranking</md-tooltip>
+                          </span>
+                          <span ng-if="!player.overallRank">
+                            N/A
+                            <md-tooltip>Overall and Position Ranking</md-tooltip>
+                          </span>
+                        </h3>
+                        <p>{{player.position}} - {{ player.teamAbbr || 'FA' }} |
+                          Bye: {{player.details.byeWeek}}
+                          <span ng-if="player.details.injuryGameStatusAbbr"> | Status: </span>
+                          <span class="injury-status" ng-if="player.details.injuryGameStatusAbbr">
+                            {{player.details.injuryGameStatusAbbr}}
+                            <md-tooltip>{{player.details.injuryGameStatus}}</md-tooltip>
+                          </span>
+                        </p>
                     </div>
-                    <md-button ng-click="vm.watchPlayer(player, $event)"
-                               class="md-icon-button">
-                      <md-icon>visibility</md-icon>
-                      <md-tooltip>Watch Player</md-tooltip>
+                    <md-button ng-click="$event.stopPropagation(); player.watched = !player.watched"
+                               class="md-icon-button" ng-switch="player.watched" aria-label="Watch Player">
+                      <md-icon ng-switch-default>
+                        visibility
+                        <md-tooltip>Watch Player</md-tooltip>
+                      </md-icon>
+                      <md-icon ng-switch-when="true">
+                        visibility_off
+                        <md-tooltip>Stop Watching Player</md-tooltip>
+                      </md-icon>
                     </md-button>
                     <md-button ng-click="vm.selectPlayer(player, $event)"
                                class="md-icon-button">

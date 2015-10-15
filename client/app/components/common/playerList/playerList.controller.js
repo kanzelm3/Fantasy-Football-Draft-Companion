@@ -5,8 +5,8 @@ class PlayerListController {
   constructor(Players) {
     this.PlayersService = Players;
   }
-  getPlayer(player) {
-    this.PlayersService.showDetails(player.id);
+  showDetails(player) {
+    this.PlayersService.showDetails(player);
   }
   splicePlayer(playerId) {
     _.remove(this.players, (player) => player.id === playerId);

@@ -1,0 +1,31 @@
+@import '../../../common/common'
+
+.player-filters
+  font-size 14px;
+  border-bottom 1px solid $lightTextColor
+  min-height 75px
+md-list-item
+  &.watched-player
+    button
+      background-color #FFF8DC !important
+  .md-avatar-icon
+    margin-top 12px
+    background-color rgba(0,0,0,0.26)
+    color rgb(255,255,255)
+    padding 8px
+    margin-bottom 8px
+    margin-right 16px
+    border-radius 50%
+    box-sizing content-box
+  .md-list-item-text
+    span
+      &.new-notes
+        md-icon
+          color $warnColor
+      md-icon
+        font-size 16px
+      font-size 14px
+      color $lightGrayTextColor
+      &.injury-status
+        color $warnColor
+        font-weight bold

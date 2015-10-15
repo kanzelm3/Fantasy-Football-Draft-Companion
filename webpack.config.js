@@ -5,7 +5,7 @@ module.exports = {
   },
   module: {
     loaders: [
-       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'babel' },
+       { test: /\.js$/, exclude: [/app\/lib/, /node_modules/], loader: 'babel?optional[]=runtime' },
        { test: /\.html$/, loader: 'raw' },
        { test: /\.styl$/, loader: 'style!css!stylus' },
        { test: /\.css$/, loader: 'style!css' }
